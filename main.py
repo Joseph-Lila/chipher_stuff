@@ -1,7 +1,12 @@
-import os
+from kivy import Config
+Config.set('graphics', 'multisamples', '0')
+import os, sys
+os.environ['KIVY_GL_BACKEND'] = 'angle_sdl2'
+
+from kivy.resources import resource_add_path, resource_find
 import pathlib
 import shutil
-import sys
+
 
 from Cryptodome.Cipher import AES
 from kivy.core.window import Window
@@ -235,6 +240,8 @@ ScreenManager:
                 MDTextFieldRound:
                     id: first_open
                     hint_text: 'Пароль 1'
+                    password: True
+                    on_text: if len(self.text.strip()) >= 16: self.text = self.text[:16]
                     normal_color: app.theme_cls.accent_color
                     color_active: 1, 0, 0, 1
                     font_size: 26
@@ -245,6 +252,8 @@ ScreenManager:
                 MDTextFieldRound:
                     id: second_open
                     hint_text: 'Пароль 2'
+                    password: True
+                    on_text: if len(self.text.strip()) >= 16: self.text = self.text[:16]
                     normal_color: app.theme_cls.accent_color
                     color_active: 1, 0, 0, 1
                     font_size: 26
@@ -255,6 +264,8 @@ ScreenManager:
                 MDTextFieldRound:
                     id: third_open
                     hint_text: 'Пароль 3'
+                    password: True
+                    on_text: if len(self.text.strip()) >= 16: self.text = self.text[:16]
                     normal_color: app.theme_cls.accent_color
                     color_active: 1, 0, 0, 1
                     font_size: 26
@@ -323,6 +334,8 @@ ScreenManager:
                 MDTextFieldRound:
                     id: first_create
                     hint_text: 'Пароль 1'
+                    password: True
+                    on_text: if len(self.text.strip()) >= 16: self.text = self.text[:16]
                     normal_color: app.theme_cls.accent_color
                     color_active: 1, 0, 0, 1
                     font_size: 26
@@ -343,6 +356,8 @@ ScreenManager:
                 MDTextFieldRound:
                     id: second_create
                     hint_text: 'Пароль 2'
+                    password: True
+                    on_text: if len(self.text.strip()) >= 16: self.text = self.text[:16]
                     normal_color: app.theme_cls.accent_color
                     color_active: 1, 0, 0, 1
                     font_size: 26
@@ -363,6 +378,8 @@ ScreenManager:
                 MDTextFieldRound:
                     id: third_create
                     hint_text: 'Пароль 3'
+                    password: True
+                    on_text: if len(self.text.strip()) >= 16: self.text = self.text[:16]
                     normal_color: app.theme_cls.accent_color
                     color_active: 1, 0, 0, 1
                     font_size: 26
@@ -665,4 +682,6 @@ class MyApp(MDApp):
 
 
 if __name__ == '__main__':
+    if hasattr(sys, '_MEIPASS'):
+        resource_add_path(os.path.join(sys._MEIPASS))
     MyApp().run()
