@@ -1,5 +1,6 @@
 from kivy import Config
 Config.set('graphics', 'multisamples', '0')
+Config.set("graphics", "window_state", "maximized")
 import os, sys
 os.environ['KIVY_GL_BACKEND'] = 'angle_sdl2'
 
@@ -404,7 +405,7 @@ ScreenManager:
             spacing: 20
             
             BoxLayout:
-                size_hint_y: .1
+                size_hint_y: .06
             
                 AnchorLayout:
             
@@ -418,9 +419,21 @@ ScreenManager:
                         text: "[b]СОХРАНИТЬ[/b]"
                         on_release: app.update_project()
             
-            TextInput:
-                id: message
-                font_size: 26
+            ScrollView:
+                bar_color: 0, 0, 1, 1
+                bar_inactive_color: 0, 0, 1, .6
+                do_scroll_x: False
+                bar_width: 15
+                scroll_type: ['bars', 'content']
+                
+                id: scrlv
+                
+                TextInput:
+                    id: message
+                    font_size: 24
+                    text: 'Hi there'
+                    size_hint: 1, None
+                    height: max( (len(self._lines)+1) * self.line_height, scrlv.height)
 """
 
 
